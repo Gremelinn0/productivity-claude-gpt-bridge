@@ -1,4 +1,5 @@
 {
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "claude-gpt-bridge",
   "owner": {
     "name": "Florent Maisoncelle"
@@ -11,7 +12,8 @@
     {
       "name": "claude-gpt-bridge",
       "source": "./",
-      "description": "Claude pilote ton projet ChatGPT déjà configuré (aller), puis installe le paquet de sources qu'il produit sans en oublier un bout (retour)."
+      "description": "Claude pilote ton projet ChatGPT déjà configuré (aller), puis installe le paquet de sources qu'il produit sans en oublier un bout (retour).",
+      "category": "productivity"
     }
   ]
 }
