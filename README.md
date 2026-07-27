@@ -39,6 +39,21 @@ script est engorgée ».
 /plugin install claude-gpt-bridge
 ```
 
+Puis, une fois :
+
+```
+/claude-gpt-bridge-setup
+```
+
+Cette commande **vérifie** que le plugin peut réellement fonctionner chez toi (contrôle du navigateur,
+session ChatGPT, projet cible), **t'aide à combler** ce qui manque, et **explique** comment le skill se
+déclenche — et surtout pourquoi il ne s'est rien passé, le cas échéant. Son verdict est **mesuré** à
+chaque ligne, jamais récité.
+
+C'est une **commande**, pas une compétence : son contenu n'est chargé qu'au moment où tu l'invoques,
+donc elle ne coûte rien à tes sessions le reste du temps. Elle n'écrit rien sur ta machine —
+`--uninstall` te le confirmera plutôt que d'aller chercher des fichiers qui n'existent pas.
+
 ## ⚠️ Setup requis de ton côté — sans ça, le plugin ne fait rien
 
 Ce plugin **pilote** un existant : il ne le crée pas. Trois prérequis, tous chez toi :
