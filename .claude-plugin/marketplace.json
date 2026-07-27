@@ -1,0 +1,17 @@
+{
+  "name": "claude-gpt-bridge",
+  "owner": {
+    "name": "Florent Maisoncelle"
+  },
+  "metadata": {
+    "description": "Déléguer du raisonnement à un projet ChatGPT existant depuis Claude Code, et réinstaller proprement ce qu'il rend.",
+    "version": "0.1.0"
+  },
+  "plugins": [
+    {
+      "name": "claude-gpt-bridge",
+      "source": "./",
+      "description": "Claude pilote ton projet ChatGPT déjà configuré (aller), puis installe le paquet de sources qu'il produit sans en oublier un bout (retour)."
+    }
+  ]
+}
