@@ -56,6 +56,8 @@ Au lancement, l'utilisateur (ou le contexte de la conversation) désigne le proj
 
 **✅ Mécanique prouvée en conditions réelles le 2026-07-23** (détail exact, pièges et parades → **§6**, ne pas le redupliquer ici). ChatGPT n'impose pas de contrainte d'iframe imbriqué same-origin (contrairement à d'autres plateformes pilotées de la même façon) — la mécanique est donc plus simple.
 
+> 🧭 **Sujet DÉJÀ en cours ⇒ on rejoint le fil existant, on n'en ouvre pas un de plus.** Se connecter au fil, **lire ses derniers messages** — ChatGPT annonce souvent lui-même la suite — puis continuer avec lui ; la capture ou la récupération d'un document ne vient qu'**après** avoir travaillé avec l'agent. Ça ne contredit pas « 1 sujet = 1 chat » (§3) : cette discipline interdit de **mélanger deux sujets** dans un thread, elle n'oblige pas à repartir de zéro sur un sujet déjà entamé. Rouvrir un chat neuf sur un sujet en cours jette le contexte que ChatGPT a déjà construit et le fait re-raisonner pour rien — l'inverse exact du but de ce skill.
+
 Le principe général, confirmé par §6 :
 1. **Naviguer** vers l'URL racine du projet ChatGPT ciblé (Chrome MCP — `claude-in-chrome`, pas le navigateur interne sandboxé : il faut la session ChatGPT déjà connectée de l'utilisateur).
 2. **Ouvrir un chat NEUF** pour le sujet à traiter — jamais continuer un thread existant pour un sujet différent (cf §3 — 1 question = 1 thread neuf). Plusieurs sujets indépendants → paralléliser via des onglets séparés plutôt qu'enchaîner en séquentiel (§6, gain de temps réel).
