@@ -1,28 +1,22 @@
 ---
 name: claude-gpt
 description: >-
-  Piloter un projet ChatGPT EXISTANT (Chrome MCP) pour déléguer du raisonnement/rédaction
-  au CERVEAU LE MOINS CHER — ChatGPT, crédits déjà payés — plutôt que de le faire en
-  tokens Claude. S'applique quand tu as déjà configuré un projet ChatGPT avec une
-  méthodologie posée DANS SES INSTRUCTIONS DE PROJET (durable) :
-  Claude ouvre un chat neuf dans CE projet, nomme le sujet, laisse ChatGPT réfléchir/rédiger,
-  relit, boucle — il ne réimplémente jamais la méthode, elle vit déjà côté ChatGPT.
-  Couvre les DEUX SENS de la collaboration. ALLER — Claude fait réfléchir ChatGPT (§2-§6).
-  RETOUR — ChatGPT a consolidé du durable et le rend en PAQUET de sources ; Claude l'installe
-  aux trois bouts et produit un reçu (§7). Déclencheur à invoquer DÈS QUE l'utilisateur dit "délègue
-  à ChatGPT", "fais bosser ChatGPT", "économise mes tokens sur ChatGPT / GPT", "pilote mon
-  projet ChatGPT", "ouvre un chat ChatGPT pour X", "claude-gpt", ou décrit une tâche de
-  recherche/rédaction/brainstorm qu'un projet ChatGPT déjà configuré peut faire à sa place —
-  même s'il ne prononce pas le mot "délégation". Côté RETOUR, les déclencheurs ne valent QUE
-  dans un contexte ChatGPT — un paquet/zip annoncé, une conversation ChatGPT collée, ou un
-  projet ChatGPT nommé : "ChatGPT m'a généré un zip / un paquet", "j'ai cliqué sur télécharger",
-  "va chercher le paquet", "fais-le en autonome", "installe le paquet de
-  synchronisation", "README-SYNCHRO", "donne ça à Claude", et "mets à jour les sources" /
-  "synchronise le projet" / "remplace les documents" / "intègre ça dans la référence" /
-  "documente les apprentissages" QUAND ils portent sur des sources venant de ChatGPT (sinon
-  c'est une compétence de documentation qu'il faut, pas ce skill). Ne PAS l'utiliser pour créer un
-  nouveau projet ChatGPT (hors scope, toujours l'existant) ni pour une tâche qui a besoin du
-  filesystem/des connexions locales de Claude (ça, c'est Claude qui le garde).
+  Piloter un projet ChatGPT EXISTANT (Chrome MCP) pour déléguer du raisonnement/rédaction au CERVEAU
+  LE MOINS CHER — ChatGPT, crédits déjà payés — plutôt qu'en tokens Claude. S'applique quand tu as
+  déjà un projet ChatGPT configuré avec sa méthodologie posée DANS SES INSTRUCTIONS DE PROJET : le
+  skill rejoint le fil existant ou ouvre le bon chat et fait travailler ChatGPT — il ne réimplémente
+  jamais la méthode, elle vit déjà côté ChatGPT. Couvre les DEUX SENS : ALLER — faire réfléchir
+  ChatGPT ; RETOUR — installer le PAQUET de sources que ChatGPT a consolidé, avec reçu. À invoquer DÈS
+  QUE l'utilisateur dit "délègue à ChatGPT", "fais bosser ChatGPT", "économise mes tokens sur ChatGPT
+  / GPT", "pilote mon projet ChatGPT", "ouvre un chat ChatGPT pour X", "claude-gpt", ou décrit une
+  tâche de recherche/rédaction/brainstorm qu'un projet ChatGPT déjà configuré peut faire à sa place —
+  même sans le mot "délégation". Côté RETOUR, les déclencheurs ne valent QUE dans un contexte ChatGPT
+  (paquet/zip annoncé, conversation collée, projet nommé) : "ChatGPT m'a généré un zip / un paquet",
+  "j'ai cliqué sur télécharger", "va chercher le paquet", "fais-le en autonome", "installe le paquet
+  de synchronisation", "README-SYNCHRO", "donne ça à Claude", et "mets à jour les sources" /
+  "synchronise le projet" / "intègre ça dans la référence" QUAND les sources viennent de ChatGPT. PAS
+  pour créer un nouveau projet ChatGPT, ni pour une tâche qui exige le filesystem ou les connexions
+  locales de Claude.
 ---
 
 # Skill — claude-gpt (déléguer vers ChatGPT)
