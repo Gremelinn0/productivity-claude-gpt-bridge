@@ -67,6 +67,66 @@ Le principe général, confirmé par §6 :
 
 **Ce qui rend ChatGPT particulièrement adapté** : certaines plateformes n'autorisent aucune instruction persistante au niveau du compte, et obligent à réinjecter la méthode par prompt à chaque fois. Un **projet ChatGPT**, lui, porte des **instructions durables au niveau du projet** : une fois posées par l'utilisateur, chaque nouveau chat DANS ce projet en hérite automatiquement. Claude n'a donc jamais à réinjecter/réexpliquer la méthode dans ses messages de lancement — nommer le sujet suffit. C'est ce qui rend cette déclinaison mécaniquement simple, sans la rendre moins rigoureuse.
 
+## §2bis LIRE et ÉCRIRE par deux canaux différents
+
+Application concrète du corollaire du chapeau (`claude-ia-delegation` §1ter). Les deux gestes n'ont
+ni la même fréquence, ni le même risque, ni le même coût — les faire par le même canal fait payer à
+chacun le défaut de l'autre. Ça **remplace l'étape 4 du §2** (« poller le texte de la page ») quand
+un pont de session est disponible.
+
+### Lire — le canal le plus étroit gagne, et de loin
+
+`get_page_text` rend **toute la page**. Sur un projet dont les instructions sont longues, il ramène
+le bloc de consignes épinglé **à chaque lecture** : mesuré sur un vrai fil, environ 5 000 mots
+rapatriés trois fois de suite pour en extraire trois phrases utiles.
+
+**S'il existe sur ta machine un pont de session** — une application locale qui suit les onglets IA et
+sait rendre une conversation — il gagne systématiquement : il rend *la dernière réponse*, entière
+(vérifié sans troncature sur un message de 9 609 caractères), sans l'interface autour.
+
+> 🖥️ **Ce pont n'est PAS fourni par ce plugin, et n'est pas requis.** Si tu disposes d'un outil local
+> qui expose l'inventaire de tes onglets IA et le contenu d'une conversation, branche-le ici : c'est
+> l'accélération la plus rentable de tout ce skill. **Sinon, tout fonctionne quand même** — on lit
+> par `get_page_text` et on paie la page entière.
+
+### Le capteur — savoir QUAND elle a fini, sans deviner
+
+Une réponse structurée prend couramment 3 à 6 minutes (§6). Deviner l'instant où elle est prête,
+c'est soit poller la page (cher), soit attendre trop (lent).
+
+Un pont de session porte en général un **état par session** (terminé / en cours) : on attend l'état
+terminé, on lit **une** fois. Sans pont, l'équivalent visuel est le bouton d'envoi qui redevient un
+bouton d'arrêt pendant la génération.
+
+### Ne jamais écrire pendant qu'elle génère
+
+Un message envoyé en pleine génération se fait au mieux mettre en file, au pire avaler par le tour en
+cours. **Le geste** : composer le message dans le champ, **vérifier l'état**, envoyer quand elle a
+fini. Le texte attend très bien dans le composer — c'est l'envoi qui doit attendre, pas la rédaction.
+
+### Écrire — trois pièges concrets, tous rencontrés en réel
+
+1. **Le multi-ligne envoie le message.** Un saut de ligne dans un `type` déclenche l'envoi et le
+   message part en morceaux. Utiliser **`shift+Return`** entre les segments, et enchaîner
+   `type` → `shift+Return` → `type` … dans **un seul `browser_batch`** : un message de 2 500
+   caractères passe ainsi en un appel, proprement paragraphé.
+2. **Une déconnexion en pleine frappe laisse du texte orphelin.** Chrome MCP se reconnecte tout seul
+   (deux fois dans une même session de pilotage), mais le champ garde ce qui avait commencé à
+   s'écrire, et la frappe suivante **s'ajoute** au lieu de remplacer. Après toute déconnexion :
+   `ctrl+a` puis `Delete` **avant** de retaper. Les refs d'éléments survivent à la reconnexion, le
+   contenu du champ non.
+3. **Relire avant d'envoyer.** `type` et `Return` restent deux actions séparées, avec une capture
+   entre les deux (§6). L'envoi est le seul geste irréversible de la boucle.
+
+### Deux limites d'un pont, à connaître avant de s'y fier
+
+- **Une même conversation ouverte dans deux onglets compte pour deux sessions.** Un inventaire par
+  onglet ne sait pas qu'il regarde deux fois la même chose. Dédupliquer sur l'URL de conversation,
+  jamais sur l'onglet.
+- **Le canvas reste invisible d'un pont aussi**, pas seulement de `get_page_text` (§6). Un document
+  généré en panneau latéral n'est ni dans le flux de conversation, ni dans ce que rend le pont : le
+  demander en texte brut dans le fil, comme décrit au §6.
+
 ## §3 Opérateur = agent
 
 Le modèle : **Claude = les mains + le gardien de la discipline** (ouvre le bon projet, respecte 1 sujet = 1 chat, ne mélange jamais deux sujets dans le même thread, relit correctement) — **ChatGPT = le cerveau** (il réfléchit, rédige, structure). Claude ne se substitue jamais à lui : si une réponse ChatGPT est faible, la corriger passe par relancer ChatGPT avec plus de contexte, pas par écrire soi-même le contenu à sa place.
