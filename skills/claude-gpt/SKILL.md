@@ -121,6 +121,42 @@ fini. Le texte attend très bien dans le composer — c'est l'envoi qui doit att
   généré en panneau latéral n'est ni dans le flux de conversation, ni dans ce que rend le pont : le
   demander en texte brut dans le fil, comme décrit au §6.
 
+## §2ter TOUT MESSAGE FINIT PAR UNE DEMANDE — sinon la boucle MEURT
+
+**Le défaut** : on envoie un **compte rendu** (« voilà ce que j'ai fait, voilà les preuves »). ChatGPT répond *« bien reçu, rien à exécuter »*… et **plus rien n'avance**. L'utilisateur doit relancer à la main — exactement le travail que ce skill existe pour lui éviter.
+
+**La règle** : le **dernier paragraphe** de tout message est une **DEMANDE actionnable, unique et précise** — quoi produire, avec quelles bornes, sous quelle forme. Un message qui ne demande rien n'est pas un message, c'est un accusé de réception : il coûte un tour pour rien.
+
+**Les 3 formes qui tuent la boucle** :
+1. **Le compte rendu sec** — il ne reste qu'à acquiescer.
+2. **L'interdiction en dernier mot** (« ne refais pas X ») : consigne **négative**, aucun geste suivant. Si une interdiction est nécessaire, elle se met **au milieu**, jamais à la fin.
+3. **La demande vague** (« dis-moi ce que tu en penses ») — elle rend un avis, pas un livrable.
+
+**Le patron qui marche** :
+> *« À toi : \<UN livrable nommé\>. Contraintes : \<les bornes\>. Rendu attendu : \<forme exacte\>. »*
+
+**Avant de demander — le test d'efficience** : *ce que je m'apprête à lui demander, est-ce que je ne l'ai pas déjà ?* Si le protocole est **déjà écrit** dans ce qu'il a produit, on ne le lui redemande pas : on l'**exécute**, et on lui demande la seule chose qu'il est **seul** à pouvoir produire (un arbitrage, une décision de conception, une pièce absente).
+
+## §2quater 🔁 RIEN NE REVIENT ⇒ ON RECYCLE L'ONGLET. PAS D'ANALYSE.
+
+**La règle, et il n'y en a pas d'autre** : le message paraît parti (champ vidé, bulle affichée) mais **rien ne revient** ⇒ **recycler l'onglet immédiatement**, puis renvoyer. On ne diagnostique pas, on ne mesure pas, on n'attend pas.
+
+**Pourquoi c'est une règle et pas un jugement** : l'envoi est **avalé silencieusement** — l'interface affiche le message, il n'atteint pas le serveur, et au rechargement il a disparu. Ça dépend de la machine et surtout **des réglages du navigateur** (onglets mis en veille pour économiser la mémoire), donc c'est **fréquent et normal**, pas une anomalie à instruire. Chaque analyse est un aller-retour perdu.
+
+**LE GESTE — fermer l'ANCIEN, sinon on paie deux fois la mémoire** :
+1. créer un onglet → 2. y ouvrir l'URL de la conversation → 3. **fermer l'ancien onglet** → 4. vider le champ de saisie (un brouillon fantôme y est souvent restauré) → 5. réécrire → 6. envoyer par **clic sur la flèche** → 7. capture de contrôle.
+⚠️ L'identifiant d'onglet change → relire le contexte des onglets avant toute action suivante. Et **fermer l'ancien n'est pas optionnel** : un onglet d'IA laissé ouvert continue de consommer ; fermé puis rouvert, il repart bien plus léger.
+
+**⏱️ LE SEUIL — après UNE occurrence dans la session, recyclage SYSTÉMATIQUE.** Plus de « peut-être que cette fois ça passera » : dès que ce symptôme est apparu une fois, **chaque envoi suivant se fait dans un onglet frais**. C'est moins cher qu'un seul tour perdu à comprendre.
+
+**Rafraîchir marche parfois — on ne s'en contente pas.** Fermer/rouvrir est plus sain et règle aussi la mémoire. Au doute : recycler.
+
+- ❌ Poller la conversation pendant plusieurs minutes pour voir si la réponse arrive.
+- ❌ Lire des journaux, compter les messages, chercher la cause.
+- ❌ Demander à l'utilisateur de renvoyer — c'est l'atelier de l'agent, pas le sien.
+
+> 💡 La commande de setup du pack (`/claude-gpt-bridge-setup`) demande à l'utilisateur si sa machine et son navigateur sont dans le cas à risque, pour savoir s'il faut recycler **d'emblée** plutôt qu'après le premier incident.
+
 ## §3 Opérateur = agent
 
 Le modèle : **Claude = les mains + le gardien de la discipline** (ouvre le bon projet, respecte 1 sujet = 1 chat, ne mélange jamais deux sujets dans le même thread, relit correctement) — **ChatGPT = le cerveau** (il réfléchit, rédige, structure). Claude ne se substitue jamais à lui : si une réponse ChatGPT est faible, la corriger passe par relancer ChatGPT avec plus de contexte, pas par écrire soi-même le contenu à sa place.

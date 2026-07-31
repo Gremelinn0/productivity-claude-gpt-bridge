@@ -50,6 +50,40 @@ marche pas ».
 Si l'utilisateur donne une URL et que le contrôle du navigateur répond, **ouvre-la** : une page de
 connexion ou une 404 en dit plus que dix questions.
 
+## 1bis — CALIBRER LA FIABILITÉ D'ENVOI (des questions, pas un test)
+
+Il existe une panne **fréquente et silencieuse** qui n'a rien à voir avec le plugin : le message
+paraît envoyé — la bulle s'affiche, le champ se vide — mais **il n'atteint jamais le serveur**, et il
+a disparu au rechargement suivant. Elle dépend de la machine et surtout **des réglages du
+navigateur** (onglets mis en veille pour économiser la mémoire). Sur une machine modeste, ou avec
+l'économiseur de mémoire réglé agressivement, elle arrive **souvent**.
+
+Le skill sait déjà y répondre — il **recycle l'onglet** (ferme l'ancien, en rouvre un neuf) au lieu
+d'analyser. Ce qu'il ne peut pas deviner, c'est s'il doit le faire **d'emblée** ou seulement après un
+premier incident. **Demande-le, ne le teste pas** : un test ne reproduirait pas la panne à la demande,
+et coûterait des tours pour rien.
+
+Trois questions, une seule fois :
+
+1. **« Une seule machine, ou plusieurs ? »** — si le réglage vaut pour un poste unique, la réponse
+   peut être enregistrée une bonne fois ; sinon elle se redemandera ailleurs.
+2. **« Ton navigateur met-il les onglets en veille rapidement ? »** — Edge le fait avec un délai
+   réglable, parfois très court ; Chrome endort au bout d'un temps plus long. Un utilisateur qui a
+   réduit ce délai, ou dont la machine est chargée, est en plein dans le cas à risque.
+3. **« Tes onglets d'IA rament-ils, ou en gardes-tu beaucoup d'ouverts ? »** — c'est le meilleur
+   indice pratique, et il ne demande aucune mesure.
+
+**Ce que tu en fais** — inscris la réponse dans le compte rendu, et applique :
+
+| Réponses | Comportement d'envoi à retenir |
+|---|---|
+| Veille rapide, machine chargée, ou onglets lents | **Recyclage d'emblée** : chaque envoi part dans un onglet neuf, l'ancien est fermé. |
+| Rien de tout ça | Envoi normal, **et recyclage systématique dès le premier incident** — jamais de deuxième analyse. |
+
+⚠️ **Fermer l'ancien onglet fait partie du geste.** Un onglet d'IA laissé ouvert continue de
+consommer de la mémoire ; fermé puis rouvert, il repart nettement plus léger. Rouvrir sans fermer
+double la charge — c'est l'inverse de l'effet recherché.
+
 ## 2 — INSTALLER
 
 Il n'y a **rien à installer côté machine** — pas de dépendance, pas de script, pas de configuration.
