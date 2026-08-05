@@ -63,7 +63,7 @@ Le principe général, confirmé par §6 :
 
 ## §2bis LIRE et ÉCRIRE par deux canaux différents
 
-Application concrète du corollaire du chapeau (`claude-ia-delegation` §1ter). Les deux gestes n'ont
+Lire et écrire ne se font pas par le même canal. Les deux gestes n'ont
 ni la même fréquence, ni le même risque, ni le même coût — les faire par le même canal fait payer à
 chacun le défaut de l'autre. Ça **remplace l'étape 4 du §2** (« poller le texte de la page ») quand
 un pont de session est disponible.
@@ -161,6 +161,25 @@ fini. Le texte attend très bien dans le composer — c'est l'envoi qui doit att
 
 Le modèle : **Claude = les mains + le gardien de la discipline** (ouvre le bon projet, respecte 1 sujet = 1 chat, ne mélange jamais deux sujets dans le même thread, relit correctement) — **ChatGPT = le cerveau** (il réfléchit, rédige, structure). Claude ne se substitue jamais à lui : si une réponse ChatGPT est faible, la corriger passe par relancer ChatGPT avec plus de contexte, pas par écrire soi-même le contenu à sa place.
 
+> 🎚️ **Ces formulations décrivent le régime de PRODUCTION DÉLÉGUÉE, pas toute la coopération.** « Claude = les mains », « ChatGPT = le cerveau », « Claude ne se substitue jamais » sont exactes quand ChatGPT **produit un livrable** (recherche, rédaction, consolidation) que Claude opère et installe : là, réécrire à sa place détruit exactement la valeur qu'on est allé chercher. Dès que les deux agents font avancer **un même chantier**, la répartition change — et c'est le **§3bis** qui la nomme.
+
+## §3bis Les DEUX MODES de coopération — quand on ne délègue plus une production, mais un LOT d'un chantier commun
+
+**Le basculement** : Claude et GPT travaillent sur le **même objectif durable** (un plan de développement, une version à finir, une architecture à trancher) plutôt que sur une commande ponctuelle. Claude cesse d'être un relai : il pilote la progression, révise le rendu et tranche. Deux contrats nomment ce qui change — **un seul est actif à la fois**.
+
+| Mode | Ce qui est en jeu | Qui pilote quoi | Contrat |
+|---|---|---|---|
+| **DÉLÉGATION PILOTÉE** — *le défaut pour avancer* | un lot déjà cadré, dont la sortie attendue est identifiable | Claude pilote la **progression générale** ; GPT pilote intellectuellement **et** opérationnellement **le lot reçu**, jusqu'au prochain vrai gate | [`references/delegation-pilotee.md`](references/delegation-pilotee.md) |
+| **RÉFLEXION CROISÉE** — *l'exception* | une contradiction ou un choix structurel réel, pas encore tranché | partenaires intellectuels : chacun peut contredire, aucune conclusion ne vaut par son auteur | [`references/reflexion-croisee.md`](references/reflexion-croisee.md) |
+
+**Charger le contrat du mode ACTIF, jamais les deux.** Ils attribuent les mêmes décisions à des propriétaires différents ; les tenir ensemble produit un agent qui redemande l'avis de GPT sur un plan déjà décidé — le brainstorming perpétuel que la délégation pilotée existe précisément pour éviter.
+
+**Le mode s'annonce, il ne se devine pas** : le message qui l'ouvre nomme le rôle et le mode (chaque contrat donne son patron d'invocation). Un bug ordinaire, un test rouge reproductible ou une correction locale **ne changent pas le mode** — seule une hypothèse structurante réellement remise en cause fait basculer en réflexion croisée, et on en ressort par une décision ou un lot exécutable.
+
+> ⚖️ **Ce qu'un mode NE lève PAS** : toute la plomberie ci-dessus reste entière — demander la cible avant d'écrire (§2), lire par le canal le plus étroit (§2bis), finir chaque message par une demande actionnable (§2ter), recycler l'onglet quand rien ne revient (§2quater), 1 sujet = 1 chat (§5). Un mode change **qui décide** ; il ne change jamais **comment on écrit dans l'onglet**.
+
+**Où ça sert** : c'est la couche de coopération qu'utilise une **campagne de développement multi-lots** — la compétence qui pilote la campagne choisit le mode et le propriétaire de chaque lot, puis s'appuie sur ces deux contrats sans les redupliquer. Si ton projet n'a pas de compétence de campagne, les deux contrats se tiennent très bien seuls : ils décrivent une **relation de travail**, pas un outillage.
+
 ## §4 Clôture — logue là où le contexte appelant suit déjà son travail
 
 Ce skill n'impose **pas** de registre fixe. En clôture, logue le chat/projet ChatGPT utilisé dans **le mécanisme de suivi que le contexte appelant utilise déjà** :
@@ -172,7 +191,7 @@ Ce skill n'impose **pas** de registre fixe. En clôture, logue le chat/projet Ch
 
 ## §5 Garde-fous
 
-- **Relai read-only par défaut** : Claude transmet, il ne décide pas du contenu produit par ChatGPT.
+- **Relai read-only par défaut** : Claude transmet, il ne décide pas du contenu produit par ChatGPT. *Ce défaut vaut pour la **production déléguée** (§3). Sous un mode de coopération (§3bis), Claude révise le rendu et tranche — mais son autorité reste bornée par le contrat du mode actif, jamais illimitée : réviser un delta n'est pas réécrire le lot à la place de GPT.*
 - **Jamais toucher un livrable final** (site en prod, document publié) directement depuis ce skill — ça reste derrière la revue humaine de la compétence appelante (celle qui a le contexte métier pour juger).
 - **Jamais créer un nouveau projet ChatGPT** sans demande explicite de l'utilisateur — ce skill pilote l'existant, il n'improvise pas une nouvelle structure.
 - **1 sujet = 1 chat, toujours** — mélanger deux sujets dans un même thread casse la lisibilité pour l'utilisateur ET pour ChatGPT (contexte pollué).

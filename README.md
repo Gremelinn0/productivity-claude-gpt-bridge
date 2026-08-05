@@ -32,6 +32,26 @@ bougent d'un onglet à l'autre, texte dupliqué après une reconnexion, contenu 
 invisible à la lecture de page, et le signal qui distingue « un onglet coince » de « l'injection de
 script est engorgée ».
 
+### Les deux modes de coopération
+
+Déléguer une **production** et faire avancer un **chantier commun** ne demandent pas la même relation.
+Tant que ChatGPT produit un livrable que Claude installe, « Claude = les mains, ChatGPT = le cerveau »
+est exact. Dès que les deux travaillent sur le même objectif durable, Claude cesse d'être un relai : il
+pilote la progression, révise le rendu et tranche.
+
+Deux contrats nomment ce qui change. **Un seul est actif à la fois** — ils attribuent les mêmes
+décisions à des propriétaires différents, et les tenir ensemble produit un agent qui redemande l'avis
+de ChatGPT sur un plan déjà décidé.
+
+| Mode | Quand | Contrat |
+|---|---|---|
+| **Délégation pilotée** — *le défaut pour avancer* | un lot déjà cadré, dont la sortie attendue est identifiable | `skills/claude-gpt/references/delegation-pilotee.md` |
+| **Réflexion croisée** — *l'exception* | une contradiction ou un choix structurel encore ouvert | `skills/claude-gpt/references/reflexion-croisee.md` |
+
+Ces fichiers ne se chargent qu'au moment où le mode est actif : ils décrivent une **relation de
+travail**, pas un outillage, et se tiennent seuls même si ton projet n'a pas de compétence de campagne
+qui les appelle.
+
 ## Installation
 
 ```
