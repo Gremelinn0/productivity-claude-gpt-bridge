@@ -137,6 +137,8 @@ fini. Le texte attend très bien dans le composer — c'est l'envoi qui doit att
 
 **Avant de demander — le test d'efficience** : *ce que je m'apprête à lui demander, est-ce que je ne l'ai pas déjà ?* Si le protocole est **déjà écrit** dans ce qu'il a produit, on ne le lui redemande pas : on l'**exécute**, et on lui demande la seule chose qu'il est **seul** à pouvoir produire (un arbitrage, une décision de conception, une pièce absente).
 
+> 🔍 **La question jumelle, celle qui coûte le plus cher : ce lot, ne l'a-t-il pas DÉJÀ LIVRÉ ?** Son dernier message dit ce qu'il **comptait** faire, pas ce qu'il a **fait depuis** — et ces deux états divergent dès qu'il travaille entre deux de tes tours, ce qui est le cas normal. **La complétion se lit là où le travail atterrit** (le dépôt, le dossier de sortie, l'historique des commits), **jamais dans le fil de conversation**. Un fil décrit une intention, pas un état. Confier un lot déjà livré coûte double : il refait le travail, et le tour est perdu.
+
 ## §2quater 🔁 RIEN NE REVIENT ⇒ ON RECYCLE L'ONGLET. PAS D'ANALYSE.
 
 **La règle, et il n'y en a pas d'autre** : le message paraît parti (champ vidé, bulle affichée) mais **rien ne revient** ⇒ **recycler l'onglet immédiatement**, puis renvoyer. On ne diagnostique pas, on ne mesure pas, on n'attend pas.
