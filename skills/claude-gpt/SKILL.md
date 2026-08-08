@@ -143,6 +143,28 @@ fini. Le texte attend très bien dans le composer — c'est l'envoi qui doit att
    contenu du champ non.
 3. **Relire avant d'envoyer.** `type` et `Return` restent deux actions séparées, avec une capture
    entre les deux (§6). L'envoi est le seul geste irréversible de la boucle.
+4. **🖐️ Fenêtre du navigateur en ARRIÈRE-PLAN ⇒ la frappe et les clics synthétiques sont AVALÉS,
+   sans erreur.** Mesuré : un vrai clic sur la référence du composer, puis six frappes séparées par
+   `shift+Return` — **toutes ont rapporté « Typed … »**, et `#prompt-textarea` est resté à
+   **longueur 0**. Le texte n'est allé nulle part. Même famille que l'onglet gelé (§2quater), mais
+   **plus silencieuse** : ici le rapport d'exécution lui-même dit « fait ».
+   ⚠️ **Et l'instrument de vérification est aveugle** : lire l'arbre d'accessibilité du composer ne
+   rend que son `placeholder`, jamais le texte saisi — il ne peut **ni confirmer ni infirmer**
+   l'écriture. Le seul témoin fiable est JavaScript.
+   **La séquence qui marche, sans dépendre du focus** :
+   ```js
+   const el = document.getElementById('prompt-textarea');
+   el.focus();
+   document.execCommand('insertText', false, msg);   // les \n deviennent des sauts de ligne, RIEN n'est envoyé
+   el.innerText.length;                              // ← LE contrôle : non nul, cohérent avec msg
+   document.querySelector('button[data-testid="send-button"]').click();
+   ```
+   **Puis le reçu, toujours** : composer revenu à 0, dernier message du fil en
+   `data-message-author-role="user"` et sa **fin** égale à la fin de `msg`. Sans ce reçu, « envoyé »
+   est une supposition. **Bénéfice au passage** : `insertText` accepte les sauts de ligne — plus
+   besoin de découper en segments `shift+Return` (piège 1).
+   ⚠️ **Viser `#prompt-textarea` NOMMÉMENT** : le premier `div[contenteditable="true"]` de la page
+   peut être **un message précédent en cours d'édition** — écrire dedans réécrirait un tour passé.
 
 ### Deux limites d'un pont, à connaître avant de s'y fier
 
