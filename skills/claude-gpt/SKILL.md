@@ -5,7 +5,9 @@ description: >-
   LE MOINS CHER — ChatGPT, crédits déjà payés — plutôt qu'en tokens Claude. S'applique quand tu as
   déjà un projet ChatGPT configuré avec sa méthodologie posée DANS SES INSTRUCTIONS DE PROJET : le
   skill rejoint le fil existant ou ouvre le bon chat et fait travailler ChatGPT — il ne réimplémente
-  jamais la méthode, elle vit déjà côté ChatGPT. Couvre les DEUX SENS : ALLER — faire réfléchir
+  jamais la méthode, elle vit déjà côté ChatGPT. SI le projet ChatGPT est connecté à un dépôt de code
+  (il lit, modifie, commite, pousse), on lui donne des CHEMINS, un lot et des contraintes, JAMAIS des
+  fichiers transportés à la main — §0bis. Couvre les DEUX SENS : ALLER — faire réfléchir
   ChatGPT ; RETOUR — installer le PAQUET de sources que ChatGPT a consolidé, avec reçu. À invoquer DÈS
   QUE l'utilisateur dit "délègue à ChatGPT", "fais bosser ChatGPT", "économise mes tokens sur ChatGPT
   / GPT", "pilote mon projet ChatGPT", "ouvre un chat ChatGPT pour X", "claude-gpt", ou décrit une
@@ -35,6 +37,20 @@ C'est une déclinaison du patron **« opérateur = agent »** appliqué à ChatG
 | **RETOUR** — ChatGPT → Claude | du **durable** consolidé (une référence, un chiffrage, une décision) qui doit remplacer les sources actives | **§7** |
 
 Sans le retour, la collaboration fuit : ChatGPT produit du bon travail qui reste bloqué dans un fil de chat, pendant que le dépôt et le projet ChatGPT continuent de tourner sur des sources périmées — chacun croyant lire la bonne version.
+
+## §0bis 🔑 SI ChatGPT A ACCÈS AU DÉPÔT — on lui donne des CHEMINS, jamais des fichiers
+
+**La question à poser une fois, au début, et à ne plus jamais deviner** : *ce projet ChatGPT est-il connecté au dépôt de code ?* Un projet peut l'être (connecteur de dépôt, accès à une organisation privée) — et alors il **lit l'état réel d'une branche, les fichiers, les commits ; il vérifie les SHA et les modifications parallèles ; il modifie, commite et pousse**.
+
+**Ce que ça change dans le geste — et c'est tout le skill qui bascule** : on ne lui **transporte** plus de fichiers, ni de contenu de dépôt, ni de doc recopiée. On lui donne **le lot, les chemins concernés, les contraintes et les vérifications attendues** — exactement comme à un agent de dev. Le pilotage navigateur reste le canal de la **conversation** (§2), plus du transport de code.
+
+**La nuance à lui faire dire** : selon la session, il peut avoir l'accès au dépôt **sans clone local complet**. Il lit et publie quand même, mais les tests qui exigent le checkout entier **reviennent à Claude** — et il doit le **signaler clairement, sans inventer leur résultat**.
+
+**Le contrôle, en une question** : *ce que je m'apprête à lui coller, est-ce qu'il peut le lire lui-même ?* Oui → donner le **chemin**, pas le contenu. Coller ce qu'il peut lire brûle des crédits sur du transport au lieu du jugement — l'inverse exact du §0.
+
+- ❌ Coller un fichier de règles, une doc ou un extrait de code dans le fil sans avoir vérifié qu'il ne peut pas le lire.
+- ❌ Bâtir un plan entier sur « il faudra lui transmettre les fichiers » — un skill bâti sur le seul pilotage navigateur **laisse croire que c'est le seul canal**, et l'erreur ne se voit jamais : tout fonctionne, en payant le transport à chaque tour.
+- ⚠️ **Le §7 ne vaut alors que pour ce qu'il produit HORS dépôt** — un paquet généré en canvas, un zip. Ce qu'il écrit dans le dépôt, il le pousse lui-même ; on relit son commit, on ne réinstalle rien.
 
 ## §1 Quand l'utiliser — le décideur
 
@@ -231,7 +247,9 @@ Discipline de mise à jour : quand ce skill gagne une capacité ou bute sur une 
 
 ## §7 Le RETOUR — installer un paquet de sources produit par ChatGPT
 
-ChatGPT ne met jamais rien à jour lui-même : il vit dans un onglet, sans accès au dépôt ni au dossier partagé. Il **produit un paquet** ; **Claude est le seul à pouvoir l'installer**. Tout le protocole ci-dessous existe parce qu'une désynchronisation ne se voit pas — chaque bout continue de tourner en croyant lire la bonne version, et l'erreur ne se découvre qu'au premier calcul faux.
+⚠️ **Portée de ce §7** : il couvre **ce que ChatGPT produit HORS dépôt** — un paquet de sources généré en canvas, un zip, un jeu de fichiers de référence. **Si le projet est connecté au dépôt (§0bis), il y écrit et pousse lui-même** : là, on relit son commit, on ne réinstalle rien. Ne pas lire ce §7 comme « ChatGPT n'a jamais accès au dépôt » — c'est la prémisse qui fait bâtir tout un plan sur du transport manuel.
+
+Pour un paquet hors dépôt, donc : ChatGPT **produit**, **Claude installe**. Tout le protocole ci-dessous existe parce qu'une désynchronisation ne se voit pas — chaque bout continue de tourner en croyant lire la bonne version, et l'erreur ne se découvre qu'au premier calcul faux.
 
 ### 7.1 Exiger un paquet COMPLET — jamais reconstruire depuis le fil
 
