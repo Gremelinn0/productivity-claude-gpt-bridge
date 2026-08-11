@@ -216,6 +216,27 @@ fini. Le texte attend très bien dans le composer — c'est l'envoi qui doit att
    💸 **Le coût de ne pas faire ce contrôle** : on attend une réponse à un message qui n'existe pas,
    on conclut que l'autre est lent, puis bloqué, puis on lui redemande — trois tours pour rien.
 
+6. **👻 LA GÉNÉRATION FANTÔME — « en cours » pendant CINQUANTE MINUTES, zéro caractère produit, et
+   l'état vient du SERVEUR (mesuré).** Le symptôme jumeau du point 5, dans l'autre sens : là un
+   message n'arrivait pas ; ici il est **bien arrivé**, et c'est **la réponse** qui ne démarre
+   jamais. Constaté : bouton d'arrêt affiché en continu, **trois rechargements complets** de la
+   conversation le confirment (ce n'est donc pas le DOM local qui ment, contrairement au point 5),
+   et le dernier message de l'assistant **ne bouge pas d'un caractère**.
+   ⚠️ **Pourquoi on se fait avoir longtemps** : « il génère » est l'explication la plus naturelle du
+   silence, et elle est **auto-renforçante** — plus on attend, plus la réponse est censée être
+   longue. Écrire pendant une génération étant proscrit, on n'ose même pas relancer. On peut y
+   perdre une heure sans rien faire de mal.
+   **LE CONTRÔLE** : chronométrer. Au-delà de **~25 minutes** sans un caractère de plus, ce n'est
+   plus une génération, c'est un tour mort. Le tell : la longueur du dernier message de l'assistant
+   **n'augmente pas** entre deux lectures espacées.
+   **LE GESTE** : cliquer le bouton d'arrêt (`[data-testid="stop-button"]`) — c'est l'onglet de
+   l'agent, pas le poste de l'utilisateur. L'état retombe immédiatement, et on **relance par un
+   message court** qui renvoie à la consigne déjà présente dans le fil plutôt que de la recopier.
+   🔗 **Et le point 5 s'applique tout de suite après** : le message de relance envoyé dans la foulée
+   a été **avalé**, reçu local entièrement vert — attrapé du premier coup par le contrôle de
+   rechargement, puis passé dans un onglet neuf. **Les deux défauts s'enchaînent**, donc on ne
+   traite jamais l'un sans vérifier l'autre.
+
 ### Deux limites d'un pont, à connaître avant de s'y fier
 
 - **Une même conversation ouverte dans deux onglets compte pour deux sessions.** Un inventaire par
