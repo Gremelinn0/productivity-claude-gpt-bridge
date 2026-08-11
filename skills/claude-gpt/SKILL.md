@@ -276,6 +276,31 @@ fini. Le texte attend très bien dans le composer — c'est l'envoi qui doit att
    décidable, et c'est le seul changement de geste : **on cherche la saturation AVANT de recycler un
    onglet ou d'accuser une génération**, parce que ce contrôle-là coûte une relance de deux lignes.*
 
+8. **✂️ LA RÉPONSE TRONQUÉE À TROIS CARACTÈRES — le tour réussit, et il ne rend RIEN (mesuré
+   2026-08-11, conversation NEUVE).** Le plus trompeur des quatre, parce que **tous les témoins
+   précédents sont verts** : le message est livré (point 5 ✅), un tour a bien démarré (point 7 ✅),
+   il s'est **terminé normalement** — bouton d'arrêt disparu, aucune erreur, aucun bandeau — et le
+   nœud `assistant` existe. Il contient **3 caractères**. Le bouton du tour affiche *« Worked for
+   14m 55s »* : quinze minutes de raisonnement pour trois lettres, visiblement le début d'un mot que
+   le flux a coupé.
+   ⚠️ **Ce qui le rend coûteux** : une lecture normale enregistre « il a répondu » et passe à la
+   suite. Rien ne distingue ce tour d'un tour réussi, sauf la **longueur**.
+   **LE TROISIÈME TÉMOIN, celui qui manquait** : après un tour terminé, mesurer que la réponse a une
+   **taille plausible** — pas seulement qu'elle existe.
+   ```js
+   const a = [...document.querySelectorAll('[data-message-author-role="assistant"]')].pop();
+   a.innerText.length            // ← < ~50 sur une consigne structurée = tour PERDU, pas une réponse
+   ```
+   **LE GESTE — découper, pas répéter.** Renvoyer la même consigne coûte le même quart d'heure et
+   peut retomber pareil. On **scinde** : un premier temps qui ne demande que **trois lignes courtes**
+   (état, un chiffre, un OK/STOP), puis le feu vert pour le gros du lot. Une réponse courte n'a pas
+   le temps d'être coupée, et elle débloque la suite tout de suite.
+   🩹 **Et ça NUANCE le point 7** : cette conversation-ci est **neuve et non saturée**
+   (`satur === false`, deux messages). Donc *toutes* les pannes muettes de ce canal ne se ramènent
+   pas à la saturation — celle du point 7 avait son bandeau, elle est établie ; l'idée qu'une seule
+   racine explique tout, elle, ne tient pas. **Le canal a plusieurs façons indépendantes d'échouer
+   en silence, et c'est pour ça que les témoins s'empilent au lieu de se remplacer.**
+
 ### Deux limites d'un pont, à connaître avant de s'y fier
 
 - **Une même conversation ouverte dans deux onglets compte pour deux sessions.** Un inventaire par
