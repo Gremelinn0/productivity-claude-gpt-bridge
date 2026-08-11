@@ -191,6 +191,31 @@ fini. Le texte attend très bien dans le composer — c'est l'envoi qui doit att
    ⚠️ **Viser `#prompt-textarea` NOMMÉMENT** : le premier `div[contenteditable="true"]` de la page
    peut être **un message précédent en cours d'édition** — écrire dedans réécrirait un tour passé.
 
+5. **🩸 CE REÇU EST NÉCESSAIRE, PAS SUFFISANT — il peut être ENTIÈREMENT VERT sur un envoi que le
+   serveur n'a JAMAIS reçu (mesuré, deux fois de suite sur un même fil).** Le point 4 dit « sans ce
+   reçu, envoyé est une supposition ». C'est vrai, et incomplet : **avec** ce reçu aussi. Constaté :
+   composer revenu à **0**, message présent dans le DOM en `data-message-author-role="user"`, texte
+   vérifié au caractère près, **et le bouton d'arrêt affiché** — donc l'interface annonçait même une
+   génération en cours. Au rechargement, **le message n'existait pas** : fil strictement identique à
+   l'état d'avant l'envoi.
+   ⚠️ **C'est ce qui rend l'envoi avalé si coûteux** : on ne l'attrape pas en regardant mieux, parce
+   que **tous les témoins locaux mentent ensemble**. Le DOM décrit ce que le client a *décidé*
+   d'afficher, jamais ce que le serveur a *accepté*.
+   **LE SEUL CONTRÔLE QUI TRANCHE — recharger, puis relire depuis le serveur** :
+   ```js
+   // après le clic d'envoi : navigate vers la MÊME URL de conversation, puis
+   [...document.querySelectorAll('[data-message-author-role="user"]')]
+     .some(m => m.innerText.includes('<un marqueur de ton message>'))   // ← true = le serveur l'a
+   ```
+   **Le témoin qui accompagne** : lire aussi la **suite des rôles** du fil. Un `…, assistant, user`
+   avec ton message en dernier prouve qu'il est arrivé **après** la dernière réponse ; un
+   `…, user, assistant` inchangé prouve qu'il a été avalé.
+   **Et le remède marche** : le même message, recomposé à l'identique dans un **onglet neuf**, est
+   passé du premier coup et a été confirmé au rechargement. Recycler l'onglet était donc le bon
+   geste ; il manquait seulement la **preuve** qui dit quand l'appliquer.
+   💸 **Le coût de ne pas faire ce contrôle** : on attend une réponse à un message qui n'existe pas,
+   on conclut que l'autre est lent, puis bloqué, puis on lui redemande — trois tours pour rien.
+
 ### Deux limites d'un pont, à connaître avant de s'y fier
 
 - **Une même conversation ouverte dans deux onglets compte pour deux sessions.** Un inventaire par
