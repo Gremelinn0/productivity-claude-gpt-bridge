@@ -52,6 +52,31 @@ Sans le retour, la collaboration fuit : ChatGPT produit du bon travail qui reste
 - ❌ Bâtir un plan entier sur « il faudra lui transmettre les fichiers » — un skill bâti sur le seul pilotage navigateur **laisse croire que c'est le seul canal**, et l'erreur ne se voit jamais : tout fonctionne, en payant le transport à chaque tour.
 - ⚠️ **Le §7 ne vaut alors que pour ce qu'il produit HORS dépôt** — un paquet généré en canvas, un zip. Ce qu'il écrit dans le dépôt, il le pousse lui-même ; on relit son commit, on ne réinstalle rien.
 
+### 📥 UNE LIVRAISON QU'ON NE VOIT PAS SE VA CHERCHER — jamais se CONSTATE absente
+
+Le paragraphe ci-dessus dit qu'il **peut** publier dans le dépôt. Il ne dit pas qu'il publie
+**toujours** — et c'est le trou par lequel on attend. **Une livraison absente du dépôt n'est pas
+une livraison absente : c'est une livraison qui vit encore dans le fil**, en canvas ou en message.
+On l'y **lit** (pilotage navigateur, §2), on ne rapporte pas « il n'a pas livré ».
+
+⚠️ **Les deux erreurs sont symétriques, et les deux se paient** :
+
+1. **Conclure l'absence depuis l'historique du dépôt** — il peut publier **pendant** qu'on mesure :
+   le fichier change sous les pieds entre deux appels de la même passe. ⇒ **rafraîchir les
+   références distantes juste avant de conclure**, jamais s'appuyer sur un état lu dix minutes plus
+   tôt.
+2. **Croire le fil quand le dépôt est en avance** — le canvas peut être **figé à une révision
+   antérieure** à ce qui est publié. Travailler dessus, c'est réfuter une version déjà corrigée, et
+   le diff a l'air parfaitement normal. *Cas mesuré : le fichier récupéré du fil portait une valeur
+   chiffrée que la version publiée avait déjà corrigée.*
+
+**Le geste, dans cet ordre** : rafraîchir le dépôt → y chercher le contenu → introuvable, alors
+**aller le lire dans le fil** → et **avant de le traiter, comparer les deux** : le dépôt dit
+l'**état**, le fil dit l'**intention** (§2ter, dans l'autre sens). Ce qui est publié gagne.
+
+- ❌ Rapporter « pas encore livré » sans avoir ni rafraîchi le dépôt, ni ouvert le fil.
+- ❌ Prendre un fichier du fil pour la version de référence sans le confronter au dépôt publié.
+
 ## §1 Quand l'utiliser — le décideur
 
 | Situation | Action |
