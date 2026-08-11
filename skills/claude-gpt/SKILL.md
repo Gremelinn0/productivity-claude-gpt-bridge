@@ -103,6 +103,20 @@ Au lancement, l'utilisateur (ou le contexte de la conversation) désigne le proj
 > ⚠️ **Ne pas confondre avec l'onglet gelé** (§2quater) : là, la lecture échoue ou la capture expire. Ici **tout réussit** — d'où l'absence totale d'alarme.
 > 🩹 *Cette ligne a d'abord été écrite à tort le même jour : « on a lu trop tôt, l'application n'avait pas fini de router ». C'était une **hypothèse non mesurée**. Le test qui tranche — attendre 5 s puis relire l'adresse — l'a réfutée en un appel. Une leçon posée avant sa mesure envoie le lecteur suivant attendre devant une porte murée.*
 
+> 🖱️ **LE FLUX NE SE CHARGE PAS ⇒ ONGLET AU PREMIER PLAN **ET** CLIC DANS LA PAGE. RECHARGER NE SUFFIT PAS (gravé 2026-08-11).**
+>
+> **Le symptôme porte plusieurs masques, c'est le même défaut** : la réponse s'arrête en plein milieu · le fil paraît figé · un message envoyé ne produit aucun tour · « elle n'a pas terminé » depuis dix minutes. **Ni le serveur ni le modèle ne sont en cause : c'est le CLIENT qui n'a pas repris son flux.**
+>
+> ✅ **LE GESTE, et il n'y en a pas d'autre** : ① l'onglet **au premier plan** · ② un **vrai clic DANS la page**, dans la conversation. Le flux reprend, le reste arrive.
+>
+> ⛔ **Ce qui NE marche PAS — essayé assez longtemps pour l'écrire** : recharger la page (`navigate` sur la même adresse) · recycler l'onglet · attendre · relancer l'agent par un message de plus. Les quatre laissent le flux exactement où il était.
+>
+> ⚠️ **Pourquoi ça se re-découvre à chaque fois** : rien n'échoue. Pas d'erreur, pas de bandeau, un DOM cohérent. Une réponse tronquée ressemble à une réponse finie, un fil figé ressemble à une génération lente — donc on attend, puis on accuse le canal, puis on refait faire le travail. **Le tell décidable** : ça dure et **rien n'avance d'un caractère** entre deux lectures espacées.
+>
+> 🩹 **Ce que ça corrige DANS CE SKILL, nommément** — deux blocs disaient le contraire, chacun écrit de bonne foi sur un symptôme voisin, aucun n'ayant testé le premier plan + clic : **(a) §2quater** *« rien ne revient ⇒ on recycle l'onglet »* — le recyclage **marchait par accident**, un onglet neuf étant actif à sa naissance, donc frontal sans qu'on l'ait cherché ; **(b) §2bis point 8** *« une réponse courte est un ordre de RECHARGER »* — recharger **relit** ce que le serveur a déjà, ça ne fait jamais **reprendre** un flux décroché.
+>
+> 🌍 **La règle ne porte pas sur ChatGPT, elle porte sur le mécanisme** : un client web qui a perdu son flux le reprend au premier plan + clic. Elle vaut pour toute IA pilotée par le navigateur.
+
 > 🧭 **LA CIBLE SE CHOISIT PAR SUJET, JAMAIS PAR « L'URL QU'ON A SOUS LA MAIN » (gravé 2026-08-07).**
 > Quand plusieurs projets ChatGPT coexistent, chacun couvre un **sujet** différent. **AVANT de naviguer ou de demander quoi que ce soit** : consulter l'inventaire qui dit **quel projet couvre quel sujet** (le document où l'utilisateur décrit ses projets et leur rôle). C'est **lui** qui désigne la cible ; l'URL n'est qu'un moyen d'y aller.
 > **Le piège, et il est silencieux** : en général une seule adresse est notée quelque part. Prendre « la seule qu'on a » revient à **piloter le bon outil sur le mauvais projet** — et rien ne le signale, parce que la page s'ouvre normalement et que la conversation démarre sans erreur.
@@ -293,8 +307,13 @@ fini. Le texte attend très bien dans le composer — c'est l'envoi qui doit att
    [...document.querySelectorAll('[data-message-author-role="assistant"]')].pop().innerText
    ```
    ⚠️ **Le témoin, donc** : une réponse anormalement courte (`< ~50` sur une consigne structurée)
-   n'est **pas** un tour perdu — c'est un **ordre de recharger**. Ne jamais relancer sur cette base :
-   on ferait refaire un quart d'heure de travail déjà rendu.
+   n'est **pas** un tour perdu — c'est un **ordre d'aller RECHERCHER le flux**. Ne jamais relancer
+   sur cette base : on ferait refaire un quart d'heure de travail déjà rendu.
+   🩹 **Corrigé le 2026-08-11 — « ordre de RECHARGER » était le mauvais geste.** Recharger **relit**
+   ce que le serveur a déjà ; ça n'a jamais fait **reprendre** un flux décroché — d'où les sessions
+   retrouvées figées après un `navigate` réputé curatif. Le geste qui marche est **premier plan +
+   clic dans la page** (§2, bloc 🖱️). Le `navigate` reste utile pour **lire** l'état vrai ; il ne
+   répare rien.
    🩹 *Une version antérieure de ce point, écrite vingt minutes plus tôt, concluait « le flux a
    coupé » et prescrivait « découper, pas répéter ». **Les deux étaient faux** — la réponse courte a
    été affichée tronquée elle aussi, et surtout il n'y avait aucune troncature. Le contrôle qui le
@@ -333,7 +352,9 @@ fini. Le texte attend très bien dans le composer — c'est l'envoi qui doit att
 
 ## §2quater 🔁 RIEN NE REVIENT ⇒ ON RECYCLE L'ONGLET. PAS D'ANALYSE.
 
-**La règle, et il n'y en a pas d'autre** : le message paraît parti (champ vidé, bulle affichée) mais **rien ne revient** ⇒ **recycler l'onglet immédiatement**, puis renvoyer. On ne diagnostique pas, on ne mesure pas, on n'attend pas.
+> 🩹 **AMENDÉ LE 2026-08-11 — LE PREMIER GESTE EST « PREMIER PLAN + CLIC DANS LA PAGE », PAS LE RECYCLAGE** (§2, bloc 🖱️). Le recyclage **marchait par accident** : un onglet créé par le MCP est actif à sa naissance, donc il recevait le premier plan sans qu'on l'ait cherché — et on créditait le mauvais geste. Il reste bon pour un content-script **engorgé** (§6), jamais pour un **flux décroché**. Tout ce qui suit garde sa valeur **une fois le flux repris**.
+
+**La règle** : le message paraît parti (champ vidé, bulle affichée) mais **rien ne revient** ⇒ **onglet au premier plan + clic dans la page**, puis renvoyer. Toujours pas ⇒ **recycler l'onglet**. On ne diagnostique pas, on ne mesure pas, on n'attend pas.
 
 **Pourquoi c'est une règle et pas un jugement** : l'envoi est **avalé silencieusement** — l'interface affiche le message, il n'atteint pas le serveur, et au rechargement il a disparu. Ça dépend de la machine et surtout **des réglages du navigateur** (onglets mis en veille pour économiser la mémoire), donc c'est **fréquent et normal**, pas une anomalie à instruire. Chaque analyse est un aller-retour perdu.
 
