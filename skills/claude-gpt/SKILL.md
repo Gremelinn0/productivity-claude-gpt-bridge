@@ -276,30 +276,33 @@ fini. Le texte attend très bien dans le composer — c'est l'envoi qui doit att
    décidable, et c'est le seul changement de geste : **on cherche la saturation AVANT de recycler un
    onglet ou d'accuser une génération**, parce que ce contrôle-là coûte une relance de deux lignes.*
 
-8. **✂️ LA RÉPONSE TRONQUÉE À TROIS CARACTÈRES — le tour réussit, et il ne rend RIEN (mesuré
-   2026-08-11, conversation NEUVE).** Le plus trompeur des quatre, parce que **tous les témoins
-   précédents sont verts** : le message est livré (point 5 ✅), un tour a bien démarré (point 7 ✅),
-   il s'est **terminé normalement** — bouton d'arrêt disparu, aucune erreur, aucun bandeau — et le
-   nœud `assistant` existe. Il contient **3 caractères**. Le bouton du tour affiche *« Worked for
-   14m 55s »* : quinze minutes de raisonnement pour trois lettres, visiblement le début d'un mot que
-   le flux a coupé.
-   ⚠️ **Ce qui le rend coûteux** : une lecture normale enregistre « il a répondu » et passe à la
-   suite. Rien ne distingue ce tour d'un tour réussi, sauf la **longueur**.
-   **LE TROISIÈME TÉMOIN, celui qui manquait** : après un tour terminé, mesurer que la réponse a une
-   **taille plausible** — pas seulement qu'elle existe.
+8. **✂️ LA RÉPONSE QUI PARAÎT TRONQUÉE — c'est l'AFFICHAGE qui coupe, le serveur a le texte
+   entier (mesuré 2026-08-11, deux fois, puis réfuté et tranché par un rechargement).**
+   **Le symptôme** : le tour se termine normalement — bouton d'arrêt disparu, aucune erreur, aucun
+   bandeau — et le nœud `assistant` contient **3 caractères**, le bouton du tour affichant
+   *« Worked for 14m 55s »*. Relancé plus court : **27 caractères**, coupés en pleine phrase. Deux
+   fois de suite, conversation **neuve et non saturée**.
+   ✅ **LA MESURE QUI TRANCHE, et elle renverse le diagnostic** : après un `navigate` sur la même
+   URL, les deux mêmes messages rendent **146** et **104 caractères** — complets, ponctuation
+   finale comprise. **Rien n'avait été tronqué : le DOM live n'affichait qu'un fragment.**
+   🔑 **CE QUE ÇA UNIFIE — le DOM local ment DANS LES DEUX SENS, et un seul contrôle couvre les
+   deux.** Le point 5 montre un message que le serveur **n'a pas** ; celui-ci **cache** du contenu
+   que le serveur **a**. Même remède, la seule lecture qui fasse foi :
    ```js
-   const a = [...document.querySelectorAll('[data-message-author-role="assistant"]')].pop();
-   a.innerText.length            // ← < ~50 sur une consigne structurée = tour PERDU, pas une réponse
+   // navigate vers la MÊME URL de conversation, puis
+   [...document.querySelectorAll('[data-message-author-role="assistant"]')].pop().innerText
    ```
-   **LE GESTE — découper, pas répéter.** Renvoyer la même consigne coûte le même quart d'heure et
-   peut retomber pareil. On **scinde** : un premier temps qui ne demande que **trois lignes courtes**
-   (état, un chiffre, un OK/STOP), puis le feu vert pour le gros du lot. Une réponse courte n'a pas
-   le temps d'être coupée, et elle débloque la suite tout de suite.
-   🩹 **Et ça NUANCE le point 7** : cette conversation-ci est **neuve et non saturée**
-   (`satur === false`, deux messages). Donc *toutes* les pannes muettes de ce canal ne se ramènent
-   pas à la saturation — celle du point 7 avait son bandeau, elle est établie ; l'idée qu'une seule
-   racine explique tout, elle, ne tient pas. **Le canal a plusieurs façons indépendantes d'échouer
-   en silence, et c'est pour ça que les témoins s'empilent au lieu de se remplacer.**
+   ⚠️ **Le témoin, donc** : une réponse anormalement courte (`< ~50` sur une consigne structurée)
+   n'est **pas** un tour perdu — c'est un **ordre de recharger**. Ne jamais relancer sur cette base :
+   on ferait refaire un quart d'heure de travail déjà rendu.
+   🩹 *Une version antérieure de ce point, écrite vingt minutes plus tôt, concluait « le flux a
+   coupé » et prescrivait « découper, pas répéter ». **Les deux étaient faux** — la réponse courte a
+   été affichée tronquée elle aussi, et surtout il n'y avait aucune troncature. Le contrôle qui le
+   dit est écrit deux points plus haut : **une règle connue ne protège que si on l'applique aussi
+   quand le symptôme a l'air neuf.***
+   🩹 **Ce qui SURVIT** : cette conversation était **neuve et non saturée** (`satur === false`), donc
+   le point 7 ne se généralise pas — le canal a bien **plusieurs** façons d'échouer en silence.
+   Simplement, celle-ci n'en était pas une : c'était un défaut d'affichage, pas une panne.
 
 ### Deux limites d'un pont, à connaître avant de s'y fier
 
