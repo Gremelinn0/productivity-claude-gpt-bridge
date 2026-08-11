@@ -345,6 +345,12 @@ fini. Le texte attend très bien dans le composer — c'est l'envoi qui doit att
 
 **Rafraîchir marche parfois — on ne s'en contente pas.** Fermer/rouvrir est plus sain et règle aussi la mémoire. Au doute : recycler.
 
+⏱️ **MAIS UN TIMEOUT DE SCRIPT N'EST PAS UN ONGLET MORT — et le contrôle qui le dit coûte UN appel, avant tout recyclage (mesuré 2026-08-11).** La règle ci-dessus vise **un message qui ne revient pas**. Elle ne vise **pas** l'échec d'une lecture, qui lui ressemble et se soigne autrement. Mesuré : deux exécutions de script d'affilée mortes sur *« Runtime.evaluate timed out after 45000ms … The renderer may be frozen or unresponsive »* — dont la seconde sur un onglet **fraîchement créé**. Recyclage appliqué, **le neuf a expiré pareil**.
+**Ce qui a réglé, c'est de re-tirer la MÊME lecture** : réponse instantanée, puis six lectures de suite sans un incident — dont deux **pendant une génération active**.
+⚠️ **Le message d'erreur accuse le renderer ; il ne prouve rien.** Un onglet **neuf** qui expire à l'identique prouve l'inverse de ce qu'on croit lire : si le défaut suivait l'onglet, le neuf serait sain.
+**Le geste, avant de recycler quoi que ce soit** : re-tirer **une lecture minimale** — `document.querySelectorAll('<sélecteur>').length`, sans `innerText`, sans `await`, sans clic. Elle répond → l'onglet est **vivant**, on continue avec la vraie lecture. Elle expire aussi → **là** on recycle.
+🩹 *Fausse piste écartée le jour même : « `innerText` force un calcul de mise en page, donc il meurt quand la page génère ». Chronométré sur la même page : **21 ms au repos**, **0 ms pendant une génération active**. La lecture n'y était pour rien — c'est le **MOMENT** qui l'était : les deux morts suivaient l'une un clic sur le bouton d'arrêt, l'autre une navigation, donc une page encore en train de se construire (0 message dans le DOM juste après la navigation, 3 quatre secondes plus tard).*
+
 - ❌ Poller la conversation pendant plusieurs minutes pour voir si la réponse arrive.
 - ❌ Lire des journaux, compter les messages, chercher la cause.
 - ❌ Demander à l'utilisateur de renvoyer — c'est l'atelier de l'agent, pas le sien.
