@@ -236,6 +236,45 @@ fini. Le texte attend très bien dans le composer — c'est l'envoi qui doit att
    a été **avalé**, reçu local entièrement vert — attrapé du premier coup par le contrôle de
    rechargement, puis passé dans un onglet neuf. **Les deux défauts s'enchaînent**, donc on ne
    traite jamais l'un sans vérifier l'autre.
+   ⛔ **ET LES DEUX ONT UNE RACINE COMMUNE — LIRE LE POINT 7 AVANT DE RECYCLER QUOI QUE CE SOIT.**
+   Les remèdes ci-dessus (onglet neuf, clic sur arrêter) soignent des symptômes ; dans une
+   conversation **saturée**, ils marchent une fois sur deux et par chance.
+
+7. **⛔ LA CONVERSATION EST PLEINE — la racine des points 5 et 6, et l'application ne le dit JAMAIS
+   SPONTANÉMENT.** Une conversation qui a atteint sa longueur maximale **accepte encore les
+   messages** — ils partent, ils sont sur le serveur, un rechargement les confirme — et **ne peut
+   plus jamais y répondre**. Rien ne l'annonce : ni bandeau, ni erreur, ni champ grisé.
+   **Ce qui a été mesuré, dans l'ordre** : message confirmé côté serveur après rechargement (le
+   contrôle du point 5 fonctionne, il a rendu `true`) · **treize minutes** sans réponse **et sans
+   génération** (`stop-button` absent, aucun nœud `assistant` ajouté) · une **relance courte** → un
+   tour démarre enfin, et rend **121 caractères** :
+   *« You've reached the maximum length for this conversation, but you can keep talking by starting
+   a new chat. »*
+   🔑 **LE GESTE DE DIAGNOSTIC EST LA RELANCE COURTE — c'est elle qui fait avouer l'application.**
+   Une conversation saturée reste **muette** tant qu'on ne redemande rien ; elle ne confesse son
+   état qu'au tour suivant. Un message de deux lignes coûte quelques secondes et remplace une heure
+   d'attente. Le tell qui l'accompagne :
+   ```js
+   document.body.innerText.includes('maximum length for this conversation')   // ← true = fil mort
+   ```
+   ⚠️ **La frontière que ça installe, et elle manquait au point 5** : *livré* et *répondu* sont
+   **deux faits distincts**. Le contrôle de rechargement prouve le premier, **jamais** le second.
+   Après un envoi, il faut donc **deux** témoins : le message est là (point 5) **et** un tour a
+   démarré — un nœud `assistant` ajouté, ou `[data-testid="stop-button"]` présent. Ni l'un ni
+   l'autre au bout d'une minute ⇒ aucun tour n'a été mis en file, et on relance court.
+   🚪 **Continuer se fait dans un chat NEUF DU PROJET — et le bouton du bandeau ne fait PAS ça.**
+   « Start new chat » renvoie vers `chatgpt.com/?prompt=…`, c'est-à-dire **la racine, hors du
+   projet** : le nouveau fil perd les instructions et les Sources, donc tout ce qui justifie ce
+   skill (§0). **Le bon chemin** : `navigate` vers `https://chatgpt.com/g/g-p-<PROJECT_ID>/project`,
+   composer là — le fil créé porte bien `/g/g-p-<projet>/c/<conv>`.
+   📮 **Et la nouvelle adresse se DONNE à l'utilisateur** : les prompts de boucle et les tâches
+   planifiées codent l'URL de conversation en dur. Un fil mort remplacé sans le dire, et le tour
+   suivant repart écrire dans le mort.
+   🩹 *Honnêteté sur la portée : que la saturation explique **rétroactivement** les points 5 et 6
+   est une hypothèse forte — les trois symptômes sont nés dans la même conversation et sont
+   exactement ce qu'une saturation produit — mais elle n'est pas prouvée après coup. Ce qui est
+   décidable, et c'est le seul changement de geste : **on cherche la saturation AVANT de recycler un
+   onglet ou d'accuser une génération**, parce que ce contrôle-là coûte une relance de deux lignes.*
 
 ### Deux limites d'un pont, à connaître avant de s'y fier
 
