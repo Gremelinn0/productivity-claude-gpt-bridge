@@ -70,8 +70,10 @@ session ChatGPT, projet cible), **t'aide à combler** ce qui manque, et **expliq
 déclenche — et surtout pourquoi il ne s'est rien passé, le cas échéant. Son verdict est **mesuré** à
 chaque ligne, jamais récité.
 
-C'est une **commande**, pas une compétence : son contenu n'est chargé qu'au moment où tu l'invoques,
-donc elle ne coûte rien à tes sessions le reste du temps. Elle n'écrit rien sur ta machine —
+C'est une **commande**, pas une compétence : son mode d'emploi (~1,9 k jetons) n'est chargé qu'au
+moment où tu l'invoques. Le reste du temps elle laisse **~40 jetons** dans tes sessions — la ligne
+qui la rend trouvable, et rien d'autre. Chiffres **mesurés** par
+`claude plugin details claude-gpt-bridge`, pas estimés. Elle n'écrit rien sur ta machine —
 `--uninstall` te le confirmera plutôt que d'aller chercher des fichiers qui n'existent pas.
 
 ## ⚠️ Setup requis de ton côté — sans ça, le plugin ne fait rien
