@@ -1,6 +1,6 @@
 # Mode — Délégation pilotée
 
-> 📎 Contrat de mode de **`/claude-gpt`** (cf son §3bis). Se charge **seul**, quand ce mode est actif — jamais en même temps que [`reflexion-croisee.md`](reflexion-croisee.md), les deux décrivent des autorités différentes.
+> 📎 Contrat de mode de **`/ia-delegation-local-to-gpt-chrome`** (cf sa section « Modes de coopération »). Se charge **seul**, quand ce mode est actif — jamais en même temps que [`reflexion-croisee.md`](reflexion-croisee.md), les deux décrivent des autorités différentes.
 > Il dit **qui décide quoi** pendant le mode. Il ne remplace rien de la plomberie du skill (atteindre l'onglet, écrire, lire, récupérer un paquet) : celle-là reste entière.
 
 ## Finalité
@@ -12,7 +12,7 @@ Claude pilote la progression générale. GPT pilote intellectuellement et opéra
 ## Invocation
 
 ```text
-Appelle /claude-gpt.
+Appelle /ia-delegation-local-to-gpt-chrome.
 
 Rôle : pilote intellectuel et opérationnel du lot confié.
 Mode : DÉLÉGATION PILOTÉE.

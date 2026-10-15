@@ -1,7 +1,7 @@
 {
   "name": "claude-gpt-bridge",
-  "description": "Fait travailler un projet ChatGPT que tu as déjà configuré, depuis Claude Code, et récupère proprement ce qu'il produit. Claude pilote le navigateur (ouvre un chat neuf par sujet, relit, boucle) au lieu de refaire en tokens Claude un raisonnement que des crédits déjà payés peuvent porter — puis installe le résultat aux trois endroits qui doivent rester synchronisés, sans jamais en oublier un en silence.",
-  "version": "0.1.0",
+  "description": "Délégation IA complète pour Claude Code : un chapeau qui choisit le bon cerveau (ChatGPT dans Chrome, Codex, une autre session, Claude Desktop, un autre onglet) et cinq compétences de transport qui prouvent l'envoi, relisent le livrable et gardent le jugement chez Claude.",
+  "version": "0.2.0",
   "author": {
     "name": "Florent Maisoncelle"
   },

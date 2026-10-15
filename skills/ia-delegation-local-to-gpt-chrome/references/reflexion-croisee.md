@@ -1,6 +1,6 @@
 # Mode — Réflexion croisée
 
-> 📎 Contrat de mode de **`/claude-gpt`** (cf son §3bis). Se charge **seul**, quand ce mode est actif — jamais en même temps que [`delegation-pilotee.md`](delegation-pilotee.md), les deux décrivent des autorités différentes.
+> 📎 Contrat de mode de **`/ia-delegation-local-to-gpt-chrome`** (cf sa section « Modes de coopération »). Se charge **seul**, quand ce mode est actif — jamais en même temps que [`delegation-pilotee.md`](delegation-pilotee.md), les deux décrivent des autorités différentes.
 > C'est l'**exception**, pas le régime de croisière : on n'y entre que si une hypothèse structurante est réellement remise en cause, et on en sort par une décision ou un lot exécutable.
 
 ## Finalité
@@ -12,7 +12,7 @@ Claude conserve le pilotage de la progression générale. Pendant la réflexion,
 ## Invocation
 
 ```text
-Appelle /claude-gpt.
+Appelle /ia-delegation-local-to-gpt-chrome.
 
 Rôle : partenaire de réflexion critique.
 Mode : RÉFLEXION CROISÉE.
